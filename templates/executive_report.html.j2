@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ title }}</title>
+  <style>
+    :root {
+      --ink: #14213d;
+      --muted: #64748b;
+      --accent: #006d77;
+      --accent-soft: #e8f3f3;
+      --line: #dbe4ea;
+      --paper: #ffffff;
+      --surface: #f6f8fa;
+    }
+    @page {
+      size: A4;
+      margin: 18mm 18mm 20mm;
+      @bottom-left {
+        content: "NEXUS CORE v2 · CONFIDENTIEL";
+        color: #64748b;
+        font: 8pt Arial, sans-serif;
+      }
+      @bottom-right {
+        content: "PAGE " counter(page) " / " counter(pages);
+        color: #64748b;
+        font: 8pt Arial, sans-serif;
+      }
+    }
+    * { box-sizing: border-box; }
+    html { font-family: Arial, Helvetica, sans-serif; color: var(--ink); }
+    body { margin: 0; background: var(--paper); font-size: 10.5pt; line-height: 1.55; }
+    .cover {
+      height: 252mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      page-break-after: always;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-size: 9pt;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+    h1 {
+      max-width: 155mm;
+      margin: 10mm 0 8mm;
+      font-size: 31pt;
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+    .cover-rule { width: 42mm; border: 0; border-top: 2px solid var(--accent); margin: 0 0 9mm; }
+    .prepared { font-size: 9pt; line-height: 1.55; color: var(--muted); }
+    .prepared strong { display: block; color: var(--ink); font-size: 13pt; margin: 2mm 0 1mm; }
+    .toc { min-height: 252mm; page-break-after: always; }
+    .toc h2 { margin-top: 8mm; }
+    .toc ol { list-style: none; padding: 0; margin-top: 12mm; }
+    .toc li { border-bottom: 1px solid var(--line); padding: 3mm 0; }
+    .toc li.level-3 { padding-left: 8mm; color: var(--muted); font-size: 9.5pt; }
+    .toc a { color: inherit; text-decoration: none; }
+    main h2 {
+      color: var(--ink);
+      font-size: 20pt;
+      line-height: 1.15;
+      margin: 14mm 0 5mm;
+      page-break-after: avoid;
+    }
+    main h3 {
+      color: var(--accent);
+      font-size: 13pt;
+      margin: 8mm 0 3mm;
+      page-break-after: avoid;
+    }
+    p { margin: 0 0 4mm; orphans: 3; widows: 3; }
+    ul, ol { padding-left: 7mm; margin: 0 0 5mm; }
+    li { margin-bottom: 1.5mm; }
+    blockquote {
+      margin: 7mm 0;
+      padding: 5mm 6mm;
+      border-left: 3px solid var(--accent);
+      background: var(--accent-soft);
+      page-break-inside: avoid;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 6mm 0 8mm;
+      font-size: 8.8pt;
+      page-break-inside: auto;
+    }
+    thead { display: table-header-group; }
+    tr { page-break-inside: avoid; }
+    th {
+      background: var(--ink);
+      color: #fff;
+      text-align: left;
+      padding: 3mm;
+    }
+    td { border-bottom: 1px solid var(--line); padding: 3mm; vertical-align: top; }
+    tbody tr:nth-child(even) { background: var(--surface); }
+    pre {
+      white-space: pre-wrap;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 5mm;
+      border-radius: 2mm;
+      font-size: 8.5pt;
+    }
+    img, svg { max-width: 100%; height: auto; page-break-inside: avoid; }
+    a { color: var(--accent); }
+    @media screen {
+      body { max-width: 210mm; margin: 0 auto; padding: 12mm; box-shadow: 0 0 30px #d7dde3; }
+      .cover, .toc { min-height: calc(100vh - 24mm); height: auto; }
+    }
+  </style>
+</head>
+<body>
+  <section class="cover">
+    <div class="eyebrow">NEXUS CORE v2 · EXECUTIVE REPORT</div>
+    <h1>{{ title }}</h1>
+    <hr class="cover-rule">
+    <div class="prepared">
+      PREPARED BY
+      <strong>DJIGO DJIBI</strong>
+      CX Consultant | Strategic Product &amp; UX/UI Designer | AI Front-End Developer
+    </div>
+  </section>
+
+  <section class="toc">
+    <div class="eyebrow">SOMMAIRE</div>
+    <h2>Table des matières</h2>
+    <ol>
+      {% for heading in headings %}
+      <li class="level-{{ heading.level }}">
+        <a href="#{{ heading.anchor }}">{{ heading.label }}</a>
+      </li>
+      {% endfor %}
+    </ol>
+  </section>
+
+  <main>{{ body_html | safe }}</main>
+</body>
+</html>
