@@ -32,3 +32,6 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "S"]
 ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/generate_autocommerce_doc1.py" = ["E501", "S108"]
