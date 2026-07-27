@@ -22,6 +22,7 @@ class ProjectRequest(BaseModel):
     target: Literal["saas", "software", "website", "wordpress", "ai", "readymag"] = "saas"
     publish: bool = False
     constraints: list[str] = Field(default_factory=list)
+    confirm_delivery_matrix: bool = True
 
 
 class NexusState(TypedDict, total=False):

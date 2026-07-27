@@ -43,6 +43,16 @@ qu'elles ne sont pas appelées. Le mode sûr `NEXUS_DRY_RUN=true` est activé pa
 
 ## Exécution
 
+Avant toute exécution, affichez et confirmez la matrice obligatoire :
+
+```bash
+python main.py deliverables --name "NEXUS CORE v2"
+python main.py deliverables --name "Autocommerce"
+```
+
+Le pipeline refuse désormais un projet dont le nom et la matrice n'ont pas été
+explicitement enregistrés dans `nexus/delivery_matrix.py`.
+
 ```bash
 python main.py validate-config
 python main.py run \
@@ -68,7 +78,9 @@ brancher après validation humaine, afin d'éviter toute mutation externe involo
 ## Connecteurs
 
 - `tools/figma_tool.py` : lecture Figma REST et pont vers un plugin Figma
+- `tools/drive_tool.py` : dossiers, classement et transfert Google Drive
 - `tools/adobe_tool.py` : génération Firefly
+- `tools/wp_tool.py` : nom stable du connecteur WordPress REST
 - `tools/wordpress_tool.py` : posts/pages/CPT via WordPress REST
 - `tools/readyai_tool.py` : webhooks idempotents ReadyAI/Readymag
 - `tools/code_runner_tool.py` : Python/Node dans une racine restreinte

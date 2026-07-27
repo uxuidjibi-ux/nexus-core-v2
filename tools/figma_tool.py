@@ -20,3 +20,26 @@ class FigmaTool(BaseHTTPConnector):
         # Plugin-side bridge: Figma REST itself cannot create arbitrary canvas nodes.
         with BaseHTTPConnector(dry_run=self.dry_run) as bridge:
             return bridge.request("POST", webhook_url, json={"manifest": manifest})
+
+    def build_case_study_manifest(
+        self,
+        *,
+        project_name: str,
+        language: str,
+        slides: list[dict[str, Any]],
+    ) -> dict[str, Any]:
+        """Create a deterministic payload for the approved Figma plugin bridge."""
+        if language not in {"fr", "en"}:
+            raise ValueError("language must be 'fr' or 'en'")
+        orders = [slide.get("order") for slide in slides]
+        if orders != list(range(1, len(slides) + 1)):
+            raise ValueError("slides must have contiguous order values starting at 1")
+        return {
+            "schema_version": "2.0",
+            "operation": "create_case_study_deck",
+            "project": project_name,
+            "language": language,
+            "canvas": {"width": 1920, "height": 1080, "ratio": "16:9"},
+            "layout": {"engine": "auto-layout-v2", "mirror_key": project_name.casefold()},
+            "slides": slides,
+        }

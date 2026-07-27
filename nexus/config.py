@@ -25,6 +25,7 @@ class Settings(BaseSettings):
 
     figma_token: SecretStr | None = None
     figma_file_key: str | None = None
+    figma_plugin_webhook_url: str | None = None
 
     adobe_client_id: str | None = None
     adobe_client_secret: SecretStr | None = None
@@ -42,6 +43,9 @@ class Settings(BaseSettings):
 
     github_token: SecretStr | None = None
     github_repository: str | None = None
+    google_drive_access_token: SecretStr | None = None
+    google_drive_nexus_folder_id: str | None = None
+    google_drive_autocommerce_folder_id: str | None = None
     sandbox_root: Path = Path("artifacts/sandbox")
     sandbox_timeout_seconds: int = Field(default=20, ge=1, le=120)
     social_webhook_url: str | None = None

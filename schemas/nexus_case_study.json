@@ -1,0 +1,18 @@
+{
+  "project": "NEXUS CORE v2",
+  "canvas": {
+    "format": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "layout": "auto-layout-v2"
+  },
+  "languages": ["fr", "en"],
+  "source": "nexus.delivery_matrix.NEXUS_CORE_PLAN",
+  "required_slide_count": 16,
+  "generation_contract": {
+    "mirror_layout_between_languages": true,
+    "preserve_project_brand": true,
+    "require_accessibility_notes": true,
+    "require_source_attribution": true
+  }
+}

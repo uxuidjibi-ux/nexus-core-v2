@@ -1,0 +1,20 @@
+{
+  "project": "Autocommerce",
+  "languages": {
+    "fr": "Français",
+    "en": "English"
+  },
+  "required_document_count": 4,
+  "source": "nexus.delivery_matrix.AUTOCOMMERCE_PLAN",
+  "brand_contract": {
+    "preserve_official_logo": true,
+    "preserve_official_palette": true,
+    "mirror_layout_between_languages": true,
+    "target_page_equivalent": "10-12"
+  },
+  "research_contract": {
+    "primary_competitor": "Cars.ca",
+    "additional_competitors": ["CarGurus", "Autowini", "AutoTrader Canada"],
+    "standards": ["Nielsen Norman Group", "WCAG 2.2 AA", "PIPEDA"]
+  }
+}

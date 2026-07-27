@@ -13,6 +13,7 @@ from agents import ARTISAN, ATELIER, AURA, CYPHER, ECHO, FORGE, PIXEL, WEAVER
 from agents.base import AgentProfile
 from agents.creative_dir import AUTOCOMMERCE_DOCUMENTS
 from nexus.config import Settings
+from nexus.delivery_matrix import delivery_plan_for
 from nexus.document_renderer import ExecutiveDocumentRenderer
 from nexus.models import Deliverable, NexusState, ProjectRequest
 
@@ -138,6 +139,8 @@ class NexusOrchestrator:
         return builder.compile()
 
     def run(self, request: ProjectRequest) -> NexusState:
+        if request.confirm_delivery_matrix:
+            delivery_plan_for(request.name)
         initial: NexusState = {
             "request": request.model_dump(mode="json"),
             "deliverables": [],
@@ -145,6 +148,7 @@ class NexusOrchestrator:
             "approved": False,
         }
         result = self.graph.invoke(initial)
+        result["delivery_plan"] = delivery_plan_for(request.name).model_dump(mode="json")
         self._write_artifacts(request, result)
         return result
 
