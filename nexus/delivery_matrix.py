@@ -54,6 +54,10 @@ class BrandDocumentRules(BaseModel):
     )
     toc_page: int = 2
     introduction_starts_at_page: int = 3
+    isolated_project_drive_folder: bool = True
+    bilingual_drive_subfolders: tuple[str, str] = ("Français", "English")
+    required_final_formats: tuple[str, str, str] = ("google_docs", "docx", "pdf")
+    verify_drive_upload_before_handoff: bool = True
 
 
 class DeliveryPlan(BaseModel):
@@ -72,6 +76,13 @@ class DeliveryPlan(BaseModel):
         orders = [item.order for item in self.deliverables]
         if orders != list(range(1, expected + 1)):
             raise ValueError("Deliverable order must be contiguous and start at 1")
+        if {language.drive_folder for language in self.languages} != {
+            "Français",
+            "English",
+        }:
+            raise ValueError(
+                "Every project must use separate Français and English Drive folders"
+            )
         return self
 
 
